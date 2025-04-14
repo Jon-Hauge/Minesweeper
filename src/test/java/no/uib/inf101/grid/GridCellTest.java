@@ -59,5 +59,23 @@ public class GridCellTest {
 		assertFalse(Objects.equals(gridCell1, gridCell3));
 		assertFalse(Objects.equals(gridCell2, gridCell3));
 	}
+
+	@Test
+	void cellConditionsTest() {
+		CellPosition pos = new CellPosition(0, 0);
+		GridCell mineCell = new GridCell(pos, '-');
+		mineCell.setMine();
+		GridCell flaggedCell = new GridCell(pos, '-');
+		flaggedCell.setFlag();
+		GridCell revealedCell = new GridCell(pos, '-');
+		revealedCell.revealCell();
+		GridCell neighboringCell = new GridCell(pos, '-');
+		neighboringCell.setMineCount('3');
+
+		assertTrue(mineCell.hasMine());
+		assertTrue(flaggedCell.isFlagged());
+		assertTrue(revealedCell.isRevealed());
+		assertEquals('3', neighboringCell.getMineCount());
+	}
 	
 }

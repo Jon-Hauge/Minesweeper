@@ -1,22 +1,20 @@
-package no.uib.inf101.tetris;
+package no.uib.inf101.minesweeper;
 
 import javax.swing.JFrame;
-
+import no.uib.inf101.minesweeper.controller.MinesweeperController;
+import no.uib.inf101.minesweeper.model.MinesweeperModel;
+import no.uib.inf101.minesweeper.view.MinesweeperView;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 
-import no.uib.inf101.tetris.controller.TetrisController;
-import no.uib.inf101.tetris.model.TetrisModel;
-import no.uib.inf101.tetris.view.TetrisView;
-
 public class Main {
 	
-	public static final String WINDOW_TITLE = "INF101 Tetris";
+	public static final String WINDOW_TITLE = "INF101 Minesweeper";
 
 	public static void main(String[] args) {
-		TetrisModel model = new TetrisModel();
-		TetrisView view = new TetrisView(model);
-		new TetrisController(model, view);
+		MinesweeperModel model = new MinesweeperModel();
+		MinesweeperView view = new MinesweeperView(model);
+		new MinesweeperController(model, view);
 
 		JFrame frame = new JFrame(WINDOW_TITLE);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

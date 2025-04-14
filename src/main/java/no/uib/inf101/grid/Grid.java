@@ -9,21 +9,22 @@ public class Grid implements IGrid {
     private int rows;
     private int cols;
 
-    private List<List<Character>> cells;
+    private List<List<GridCell>> cells;
 
     public Grid(int rows, int cols) {
         this(rows, cols, null);
     }
 
-    public Grid(int rows, int cols, Character defaulValue) {
+    public Grid(int rows, int cols, Character defaultValue) {
         this.rows = rows;
         this.cols = cols;
 
         cells = new ArrayList<>();
         for (int i = 0; i < rows; i++) {
-            List<Character> innerList = new ArrayList<>();
+            List<GridCell> innerList = new ArrayList<>();
             for (int j = 0; j < cols; j++) {
-                innerList.add(defaulValue);
+                GridCell defaultCell = new GridCell(new CellPosition(i, j), defaultValue);
+                innerList.add(defaultCell);
             }
             cells.add(innerList);
         }
@@ -39,15 +40,17 @@ public class Grid implements IGrid {
         return this.cols;
     }
 
+    /* Ny iterator for å omgjøre Grid's interne verdier til GridCell istedenfor Character
+    * ble hjulpet av OpenAI's ChatGPT. Dette gjelder addAll-funksjonen. Koden er forstått
+    * ihht til seg selv og resten av programmet.
+    * OpenAI - https://chatgpt.com - henta 03.04.25
+    */
     @Override
     public Iterator<GridCell> iterator() {
         List<GridCell> gridCells = new ArrayList<>();
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < cols; j++) {
-                CellPosition pos = new CellPosition(i, j);
-                GridCell cell = new GridCell(pos, get(pos));
-                gridCells.add(cell);
-            }
+
+        for (List<GridCell> cell : cells) {
+            gridCells.addAll(cell);
         }
         return gridCells.iterator();
     }
@@ -59,11 +62,21 @@ public class Grid implements IGrid {
 
         int row = pos.row();
         int col = pos.col();
-        cells.get(row).set(col, symbol);
+        cells.get(row).set(col, new GridCell(pos, symbol));
+    }
+    
+    @Override
+    public Character get(CellPosition pos) {
+        if (!positionIsOnGrid(pos))
+            throw new IndexOutOfBoundsException("Given position is not within grid: (" + pos.row() + ", " + pos.col() + ")");
+
+        int row = pos.row();
+        int col = pos.col();
+        return cells.get(row).get(col).symbol();
     }
 
     @Override
-    public Character get(CellPosition pos) {
+    public GridCell getCell(CellPosition pos) {
         if (!positionIsOnGrid(pos))
             throw new IndexOutOfBoundsException("Given position is not within grid: (" + pos.row() + ", " + pos.col() + ")");
 

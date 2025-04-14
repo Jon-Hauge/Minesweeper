@@ -1,4 +1,4 @@
-package no.uib.inf101.tetris.view;
+package no.uib.inf101.minesweeper.view;
 
 import java.awt.geom.Rectangle2D;
 
