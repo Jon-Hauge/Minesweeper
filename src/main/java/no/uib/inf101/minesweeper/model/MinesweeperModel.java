@@ -64,14 +64,14 @@ public class MinesweeperModel implements ViewableMinesweeperModel, ControllableM
             }
 
             if (board.getCell(pos).hasMine()) {
-            state = GameState.GAME_OVER;
+                state = GameState.GAME_OVER;
             }
         }
 
         if (state == GameState.GAME_OVER) {
             for (GridCell cell : board) {
                 if (cell.hasMine()) {
-                    cell.revealCell();
+                    cell.revealCell();;
                 }
             }
         }
@@ -140,6 +140,11 @@ public class MinesweeperModel implements ViewableMinesweeperModel, ControllableM
     public Iterable<GridCell> getTilesOnBoard() {
         return board;
     }
+    
+    @Override
+    public MinesweeperBoard getBoard() {
+        return board;
+    }
 
     @Override
     public GameState getGameState() {
@@ -149,11 +154,6 @@ public class MinesweeperModel implements ViewableMinesweeperModel, ControllableM
     @Override
     public GameMode getGameMode() {
         return mode;
-    }
-
-    @Override
-    public MinesweeperBoard getBoard() {
-        return board;
     }
 
     @Override

@@ -96,6 +96,13 @@ public class GridTest {
 		} catch (IndexOutOfBoundsException e) {
 			// Test passed
 		}
+		try {
+			@SuppressWarnings("unused")
+			GridCell x = grid.getCell(new CellPosition(3, 2));
+			fail();
+		} catch (IndexOutOfBoundsException e) {
+			// Test passed
+		}
 	}
 
 	@Test

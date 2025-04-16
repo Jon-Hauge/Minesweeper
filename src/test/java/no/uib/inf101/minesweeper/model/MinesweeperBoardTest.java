@@ -5,6 +5,9 @@ import org.junit.jupiter.api.Test;
 import no.uib.inf101.grid.CellPosition;
 import no.uib.inf101.grid.GridCell;
 
+/**
+ * Testing the class MinesweeperBoard
+ */
 public class MinesweeperBoardTest {
 
     @Test
@@ -44,6 +47,17 @@ public class MinesweeperBoardTest {
         board.getCell(new CellPosition(9, 9)).setMine();
         CellPosition neighbor4 = new CellPosition(8, 8);
 
+        //Middle
+        board.getCell(new CellPosition(2, 2)).setMine();
+        board.getCell(new CellPosition(2, 3)).setMine();
+        board.getCell(new CellPosition(2, 4)).setMine();
+        board.getCell(new CellPosition(3, 2)).setMine();
+        board.getCell(new CellPosition(3, 4)).setMine();
+        board.getCell(new CellPosition(4, 2)).setMine();
+        board.getCell(new CellPosition(4, 3)).setMine();
+        board.getCell(new CellPosition(4, 4)).setMine();
+        CellPosition neighbor5 = new CellPosition(3, 3);
+    
         board.testCalculation();
 
         for (GridCell cell : board) {
@@ -58,6 +72,9 @@ public class MinesweeperBoardTest {
             }
             if (cell.pos().equals(neighbor4)) {
                 assertEquals(2, cell.getMineCount());
+            }
+            if (cell.pos().equals(neighbor5)) {
+                assertEquals(8, cell.getMineCount());
             }
         }
     }
