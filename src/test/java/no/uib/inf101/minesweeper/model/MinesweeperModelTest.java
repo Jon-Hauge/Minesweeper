@@ -52,11 +52,10 @@ public class MinesweeperModelTest {
             }
         }
 
-
         if (model.getGameState().equals(GameState.ACTIVE_GAME)) {
             for (GridCell cell : model.getBoard()) {
                 if (cell.hasMine()) {
-                    cell.revealCell();
+                    model.revealCell(cell.pos());;
                 }
             }
         }
