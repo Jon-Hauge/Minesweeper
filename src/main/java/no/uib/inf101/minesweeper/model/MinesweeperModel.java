@@ -25,6 +25,10 @@ public class MinesweeperModel implements ViewableMinesweeperModel, ControllableM
         boardInitializer(mode);
     }
 
+    /** Initializes the board based on gamemode
+     * 
+     * @param mode to choose boardsize, mine- and flagcount from
+     */
     private void boardInitializer(GameMode mode) {
         if (mode.equals(GameMode.EASY)) {
             board = new MinesweeperBoard(10, 10, 10);
@@ -95,6 +99,7 @@ public class MinesweeperModel implements ViewableMinesweeperModel, ControllableM
         }
     }
 
+    /** Checks whether game is won based on amount of cells revealed/flagged */
     private boolean checkWinCondition() {
         int totalCells = board.rows() * board.cols();
         int count = 0;

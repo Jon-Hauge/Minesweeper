@@ -17,6 +17,7 @@ public class MinesweeperBoard extends Grid {
         calculateNeighboringMines();
     }
 
+    /** Places mines randomly on the board */
     private void placeMines() {
         int count = 0;
         Random r = new Random();
@@ -33,6 +34,7 @@ public class MinesweeperBoard extends Grid {
         }
     }
 
+    /** Sets neighboring minecount of the cells on the board */
     private void calculateNeighboringMines() {
         for (GridCell cell : this) {
             if (!cell.hasMine()) {
@@ -42,6 +44,11 @@ public class MinesweeperBoard extends Grid {
         }
     }
 
+    /** Counts neighboring minecount of the cells on the board
+    * 
+    * @param pos position to count around
+    * @return number of neighboring mines
+    */
     private int countMinesAround(CellPosition pos) {
         int adjMineCount = 0;
         int[][] adjacentPositions = {

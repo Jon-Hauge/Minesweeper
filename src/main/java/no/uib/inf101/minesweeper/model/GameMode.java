@@ -6,6 +6,11 @@ public enum GameMode {
     MEDIUM,
     HARD;
 
+    /**
+     * Toggles to next gamemode
+     * 
+     * @return next gamemode based on current
+     */
     public GameMode next() {
         return switch (this) {
             case EASY -> MEDIUM;
