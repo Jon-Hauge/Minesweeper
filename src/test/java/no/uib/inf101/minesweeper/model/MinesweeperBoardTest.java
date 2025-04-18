@@ -57,6 +57,9 @@ public class MinesweeperBoardTest {
         board.getCell(new CellPosition(4, 3)).setMine();
         board.getCell(new CellPosition(4, 4)).setMine();
         CellPosition neighbor5 = new CellPosition(3, 3);
+
+        //No neighboring mines
+        CellPosition noNeighbors = new CellPosition(7, 5);
     
         board.testCalculation();
 
@@ -75,6 +78,9 @@ public class MinesweeperBoardTest {
             }
             if (cell.pos().equals(neighbor5)) {
                 assertEquals(8, cell.getMineCount());
+            }
+            if (cell.pos().equals(noNeighbors)) {
+                assertEquals(0, cell.getMineCount());
             }
         }
     }

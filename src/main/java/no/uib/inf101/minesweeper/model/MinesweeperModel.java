@@ -68,10 +68,10 @@ public class MinesweeperModel implements ViewableMinesweeperModel, ControllableM
             }
         }
 
-        if (state == GameState.GAME_OVER) {
+        if (state.equals(GameState.GAME_OVER)) {
             for (GridCell cell : board) {
                 if (cell.hasMine()) {
-                    cell.revealCell();;
+                    cell.revealCell();
                 }
             }
         }

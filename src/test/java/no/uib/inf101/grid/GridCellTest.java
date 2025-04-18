@@ -34,9 +34,9 @@ public class GridCellTest {
 		CellPosition pos2 = new CellPosition(4, 2);
 		GridCell gridCell2 = new GridCell(pos2, item2);
 
+		assertTrue(gridCell1.equals(gridCell1));
 		assertTrue(gridCell2.equals(gridCell1));
 		assertTrue(gridCell1.equals(gridCell2));
-		assertTrue(Objects.equals(gridCell1, gridCell2));
 		assertTrue(gridCell1.hashCode() == gridCell2.hashCode());
 	}
 
@@ -56,6 +56,8 @@ public class GridCellTest {
 		assertFalse(gridCell1.equals(gridCell2));
 		assertFalse(gridCell1.equals(gridCell3));
 		assertFalse(gridCell2.equals(gridCell3));
+		assertFalse(gridCell1.equals("Not a gridcell"));
+		assertFalse(gridCell1.hashCode() == gridCell2.hashCode());
 		assertFalse(Objects.equals(gridCell1, gridCell2));
 		assertFalse(Objects.equals(gridCell1, gridCell3));
 		assertFalse(Objects.equals(gridCell2, gridCell3));
@@ -81,12 +83,12 @@ public class GridCellTest {
 		mineCell.setMine();
 		flaggedCell.setFlag();
 		revealedCell.revealCell();
-		neighboringCell.setMineCount('3');
+		neighboringCell.setMineCount(3);
 
 		assertTrue(mineCell.hasMine());
 		assertTrue(flaggedCell.isFlagged());
 		assertTrue(revealedCell.isRevealed());
-		assertEquals('3', neighboringCell.getMineCount());
+		assertEquals(3, neighboringCell.getMineCount());
 	}
 	
 }

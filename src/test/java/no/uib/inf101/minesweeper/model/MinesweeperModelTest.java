@@ -7,6 +7,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import no.uib.inf101.grid.CellPosition;
 import no.uib.inf101.grid.GridCell;
+import no.uib.inf101.grid.GridDimension;
 
 /**
  * Testing the class MinesweeperModel
@@ -28,7 +29,6 @@ public class MinesweeperModelTest {
 
     @Test
     public void revealCellsTest() {
-        model.getBoard().getCell(new CellPosition(1, 1)).setMine();
         model.revealCell(testPos1);
         assertTrue(model.getBoard().getCell(testPos1).isRevealed());
 
@@ -40,7 +40,7 @@ public class MinesweeperModelTest {
 
         for (GridCell cell : model.getBoard()) {
             if (cell.getMineCount() == 0 && !cell.hasMine()) {
-                model.revealCell(cell.pos());;
+                model.revealCell(cell.pos());
                 for (int[] adjPos : adjacentPositions) {
                     int newRow = cell.pos().row() + adjPos[0];
                     int newCol = cell.pos().col() + adjPos[1];
@@ -51,25 +51,32 @@ public class MinesweeperModelTest {
                 }
             }
         }
+    }
+
+    @Test
+    public void revealMinesPostGameOverTest() {
+        model.startGame();
 
         if (model.getGameState().equals(GameState.ACTIVE_GAME)) {
             for (GridCell cell : model.getBoard()) {
                 if (cell.hasMine()) {
-                    model.revealCell(cell.pos());;
+                    model.revealCell(cell.pos());
                 }
             }
         }
-        if (model.getGameState().equals(GameState.GAME_OVER)) {
-            for (GridCell cell : model.getBoard()) {
-                if (cell.hasMine()) {
-                    assertTrue(cell.isRevealed());
-                }
+        for (GridCell cell : model.getBoard()) {
+            if (cell.hasMine()) {
+                assertTrue(cell.isRevealed());
             }
         }
+        
     }
 
     @Test
     public void setFlagTest() {
+        model.setFlag(testPos1);
+        assertTrue(model.getBoard().getCell(testPos1).isFlagged());
+
         //EASY
         model.toggleGameMode();
         model.toggleGameMode();
@@ -82,16 +89,18 @@ public class MinesweeperModelTest {
         //HARD
         model.toggleGameMode();
         assertEquals(15, model.getFlagCount());
+    }
 
-        model.setFlag(testPos1);
-        assertTrue(model.getBoard().getCell(testPos1).isFlagged());
+    @Test
+    public void flagLimitTest() {
+        int flagCountBefore = model.getFlagCount();
 
-        if (model.getFlagCount() == 0) {
-            int flagCountBefore = model.getFlagCount();
-            model.setFlag(testPos3);
-            assertFalse(model.getBoard().getCell(testPos3).isFlagged());
-            assertEquals(flagCountBefore, model.getFlagCount());
+        for (int i = 1; i < 11; i++) {
+            model.setFlag(new CellPosition(0, i)); 
+            assertEquals(flagCountBefore - i, model.getFlagCount());
         }
+        model.setFlag(testPos3);
+        assertFalse(model.getBoard().getCell(testPos3).isFlagged());
     }
 
     @Test
@@ -193,13 +202,14 @@ public class MinesweeperModelTest {
     }
 
     @Test
-    void iteratorTest() {
-        //Iterable<GridCell> preMoveIterable = model.getTilesOnBoard();
-        //action - maybe placeMines ell noko lignans
-        //Iterable<GridCell> postMoveIterable = model.getTilesOnBoard();
+    void iterableTest() {
+        int count = 0;
+        GridDimension dimension = model.getDimension();
 
-        //assertNotEquals(preMoveIterable, postMoveIterable);
-        model.getBoard().equals(model.getTilesOnBoard());
+        for (GridCell cell : model.getTilesOnBoard()) {
+            count++;
+        }
+        assertEquals(dimension.cols() * dimension.rows(), count);
     }
 
 }
