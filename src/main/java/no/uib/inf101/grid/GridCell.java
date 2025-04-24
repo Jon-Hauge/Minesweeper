@@ -3,34 +3,24 @@ package no.uib.inf101.grid;
 import java.util.Objects;
 
 /**
- * The GridCell class represents a single cellposition on the gameboard with a value and
- * boolean-values indicating whether it has a mine, is flagged or is revealed. If the cell does
+ * The GridCell class represents a single cellposition on the gameboard with boolean-
+ * values indicating whether it has a mine, is flagged or is revealed. If the cell does
  * not have a mine, it keeps count of neighboring mines.
  */
 public class GridCell {
 
     private CellPosition pos;
-    private Character symbol;
     private boolean hasMine;
     private boolean isFlagged;
     private boolean isRevealed;
     private int neighboringMines;
 
-    public GridCell(CellPosition pos, Character symbol) {
+    public GridCell(CellPosition pos) {
         this.pos = pos;
-        this.symbol = symbol;
         this.neighboringMines = 0;
         hasMine = false;
         isFlagged = false;
         isRevealed = false;
-    }
-
-    /**
-     * 
-     * @return the cell's value in the grid
-     */
-    public Character symbol() {
-        return symbol;
     }
 
     /**
@@ -111,13 +101,12 @@ public class GridCell {
             return false;
 
         GridCell gridCell = (GridCell) other;
-        return this.pos.equals(gridCell.pos) &&
-            this.symbol == gridCell.symbol;
+        return this.pos.equals(gridCell.pos);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(pos, symbol);
+        return Objects.hash(pos);
     }
 
 }

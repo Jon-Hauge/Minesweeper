@@ -137,6 +137,11 @@ public class MinesweeperModel implements ViewableMinesweeperModel, ControllableM
     }
 
     @Override
+    public void setElapsedTime(int seconds) {
+        this.elapsedTime = seconds;
+    }
+
+    @Override
     public GridDimension getDimension() {
         return board;
     }
@@ -164,11 +169,6 @@ public class MinesweeperModel implements ViewableMinesweeperModel, ControllableM
     @Override
     public int getFlagCount() {
         return flagCount;
-    }
-    
-    @Override
-    public void setElapsedTime(int seconds) {
-        this.elapsedTime = seconds;
     }
 
     @Override

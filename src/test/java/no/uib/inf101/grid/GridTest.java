@@ -24,57 +24,18 @@ public class GridTest {
 
 	@Test
 	void gridSanityTest() {
-		char defaultValue = 'x';
-		IGrid grid = new Grid(3, 2, defaultValue);
+		IGrid grid = new Grid(3, 2);
 
 		assertEquals(3, grid.rows());
 		assertEquals(2, grid.cols());
 
-		assertEquals('x', grid.get(new CellPosition(0, 0)));
-		assertEquals('x', grid.get(new CellPosition(2, 1)));
-
-		grid.set(new CellPosition(1, 1), 'y');
-
-		assertEquals('y', grid.get(new CellPosition(1, 1)));
-		assertEquals('x', grid.get(new CellPosition(0, 1)));
-		assertEquals('x', grid.get(new CellPosition(1, 0)));
-		assertEquals('x', grid.get(new CellPosition(2, 1)));
-	}
-
-	@Test
-	void gridCanHoldNull() {
-		char defaultValue = 'x';
-		IGrid grid = new Grid(3, 2, defaultValue);
-
-		assertEquals('x', grid.get(new CellPosition(0, 0)));
-		assertEquals('x', grid.get(new CellPosition(2, 1)));
-
-		grid.set(new CellPosition(1, 1), null);
-
-		assertEquals(null, grid.get(new CellPosition(1, 1)));
-		assertEquals('x', grid.get(new CellPosition(0, 1)));
-		assertEquals('x', grid.get(new CellPosition(1, 0)));
-		assertEquals('x', grid.get(new CellPosition(2, 1)));
-	}
-
-	@Test
-	void gridNullsInDefaultConstructor() {
-		IGrid grid = new Grid(3, 2);
-
-		assertEquals(null, grid.get(new CellPosition(0, 0)));
-		assertEquals(null, grid.get(new CellPosition(2, 1)));
-
-		grid.set(new CellPosition(1, 1), 'y');
-
-		assertEquals('y', grid.get(new CellPosition(1, 1)));
-		assertEquals(null, grid.get(new CellPosition(0, 1)));
-		assertEquals(null, grid.get(new CellPosition(1, 0)));
-		assertEquals(null, grid.get(new CellPosition(2, 1)));
+		assertEquals(new GridCell(new CellPosition(0, 0)), grid.getCell(new CellPosition(0, 0)));
+		assertEquals(new GridCell(new CellPosition(2, 1)), grid.getCell(new CellPosition(2, 1)));
 	}
 
 	@Test
 	void coordinateIsOnGridTest() {
-		IGrid grid = new Grid(3, 2, 'z');
+		IGrid grid = new Grid(3, 2);
 
 		assertTrue(grid.positionIsOnGrid(new CellPosition(2, 1)));
 		assertFalse(grid.positionIsOnGrid(new CellPosition(3, 1)));
@@ -87,30 +48,18 @@ public class GridTest {
 
 	@Test
 	void throwsExceptionWhenGetCoordinateOffGrid() {
-		IGrid grid = new Grid(3, 2, 'x');
+		IGrid grid = new Grid(3, 2);
 
 		try {
 			@SuppressWarnings("unused")
-			char x = grid.get(new CellPosition(3, 1));
+			GridCell cell1 = grid.getCell(new CellPosition(3, 1));
 			fail();
 		} catch (IndexOutOfBoundsException e) {
 			// Test passed
 		}
 		try {
 			@SuppressWarnings("unused")
-			GridCell x = grid.getCell(new CellPosition(3, 2));
-			fail();
-		} catch (IndexOutOfBoundsException e) {
-			// Test passed
-		}
-	}
-
-	@Test
-	void throwsExceptionWhenSetCoordinateOffGrid() {
-		IGrid grid = new Grid(3, 2, 'x');
-
-		try {
-			grid.set(new CellPosition(3, 1), 'y');
+			GridCell cell2 = grid.getCell(new CellPosition(3, 2));
 			fail();
 		} catch (IndexOutOfBoundsException e) {
 			// Test passed
@@ -119,10 +68,7 @@ public class GridTest {
 
 	@Test
 	void testIterator() {
-		IGrid grid = new Grid(3, 2, 'x');
-		grid.set(new CellPosition(0, 0), 'a');
-		grid.set(new CellPosition(1, 1), 'b');
-		grid.set(new CellPosition(2, 1), 'c');
+		IGrid grid = new Grid(3, 2);
 
 		List<GridCell> items = new ArrayList<>();
 		for (GridCell coordinateItem : grid) {
@@ -130,10 +76,10 @@ public class GridTest {
 		}
 
 		assertEquals(3 * 2, items.size());
-		assertTrue(items.contains(new GridCell(new CellPosition(0, 0), 'a')));
-		assertTrue(items.contains(new GridCell(new CellPosition(1, 1), 'b')));
-		assertTrue(items.contains(new GridCell(new CellPosition(2, 1), 'c')));
-		assertTrue(items.contains(new GridCell(new CellPosition(0, 1), 'x')));
+		assertTrue(items.contains(new GridCell(new CellPosition(0, 0))));
+		assertTrue(items.contains(new GridCell(new CellPosition(1, 1))));
+		assertTrue(items.contains(new GridCell(new CellPosition(2, 1))));
+		assertTrue(items.contains(new GridCell(new CellPosition(0, 1))));
 	}
 	
 }

@@ -61,7 +61,7 @@ public class MinesweeperBoardTest {
         //No neighboring mines
         CellPosition noNeighbors = new CellPosition(7, 5);
     
-        board.testCalculation();
+        board.calculateNeighboringMines();
 
         for (GridCell cell : board) {
             if (cell.pos().equals(neighbor1)) {

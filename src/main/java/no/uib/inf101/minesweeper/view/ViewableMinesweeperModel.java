@@ -22,28 +22,16 @@ public interface ViewableMinesweeperModel {
      */
     Iterable<GridCell> getTilesOnBoard();
 
-    /**
-     * 
-     * @return current gamestate
-     */
+    /** @return current gamestate */
     GameState getGameState();
 
-    /**
-     * 
-     * @return current gamemode
-     */
+    /** @return current gamemode */
     GameMode getGameMode();
 
-    /**
-     * 
-     * @return current flagcount
-     */
+    /** @return current flagcount */
     int getFlagCount();
 
-    /**
-     * 
-     * @return current elapsed time
-     */
+    /** @return current elapsed time */
     int getElapsedTime();
 
 }

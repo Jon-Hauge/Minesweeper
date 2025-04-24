@@ -16,23 +16,19 @@ public class GridCellTest {
 
 	@Test
 	void sanityTest() {
-		char item = 'x';
 		CellPosition pos = new CellPosition(4, 2);
-		GridCell gridCell = new GridCell(pos, item);
+		GridCell gridCell = new GridCell(pos);
 
 		assertEquals(pos, gridCell.pos());
-		assertEquals(item, gridCell.symbol());
 	}
 
 	@Test
 	void gridCellEqualityAndHashCodeTest() {
-		char item1 = 'x';
 		CellPosition pos1 = new CellPosition(4, 2);
-		GridCell gridCell1 = new GridCell(pos1, item1);
+		GridCell gridCell1 = new GridCell(pos1);
 
-		char item2 = 'x';
 		CellPosition pos2 = new CellPosition(4, 2);
-		GridCell gridCell2 = new GridCell(pos2, item2);
+		GridCell gridCell2 = new GridCell(pos2);
 
 		assertTrue(gridCell1.equals(gridCell1));
 		assertTrue(gridCell2.equals(gridCell1));
@@ -42,24 +38,20 @@ public class GridCellTest {
 
 	@Test
 	void gridCellInequalityTest() {
-		char item1 = 'x';
 		CellPosition pos1 = new CellPosition(4, 2);
-		GridCell gridCell1 = new GridCell(pos1, item1);
+		GridCell gridCell1 = new GridCell(pos1);
 
-		char item2 = 'y';
 		CellPosition pos2 = new CellPosition(2, 4);
 
-		GridCell gridCell2 = new GridCell(pos2, item1);
-		GridCell gridCell3 = new GridCell(pos1, item2);
+		GridCell gridCell2 = new GridCell(pos2);
+		GridCell gridCell3 = new GridCell(pos1);
 
 		assertFalse(gridCell2.equals(gridCell1));
 		assertFalse(gridCell1.equals(gridCell2));
-		assertFalse(gridCell1.equals(gridCell3));
 		assertFalse(gridCell2.equals(gridCell3));
 		assertFalse(gridCell1.equals("Not a gridcell"));
 		assertFalse(gridCell1.hashCode() == gridCell2.hashCode());
 		assertFalse(Objects.equals(gridCell1, gridCell2));
-		assertFalse(Objects.equals(gridCell1, gridCell3));
 		assertFalse(Objects.equals(gridCell2, gridCell3));
 	}
 
@@ -70,10 +62,10 @@ public class GridCellTest {
 		CellPosition pos3 = new CellPosition(2, 2);
 		CellPosition pos4 = new CellPosition(3, 3);
 		
-		GridCell mineCell = new GridCell(pos1, '-');
-		GridCell flaggedCell = new GridCell(pos2, '-');
-		GridCell revealedCell = new GridCell(pos3, '-');
-		GridCell neighboringCell = new GridCell(pos4, '-');
+		GridCell mineCell = new GridCell(pos1);
+		GridCell flaggedCell = new GridCell(pos2);
+		GridCell revealedCell = new GridCell(pos3);
+		GridCell neighboringCell = new GridCell(pos4);
 		
 		assertFalse(mineCell.hasMine());
 		assertFalse(flaggedCell.isFlagged());
