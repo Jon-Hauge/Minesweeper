@@ -1,6 +1,6 @@
 # **🕹️ Minesweeper**
 
-Demo-video: https://youtube.com/shorts/2YNduCX3u7c?feature=share
+Demo-video: https://youtube.com/2YNduCX3u7c?feature=share
 
 Prosjektet gikk ut på å omforme et fungerende tetris-program
 til minesweeper. Dette innebærte hovedsaklig endring av grid
