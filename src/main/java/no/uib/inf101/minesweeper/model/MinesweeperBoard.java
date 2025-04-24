@@ -10,7 +10,7 @@ public class MinesweeperBoard extends Grid {
     private int mineCount;
 
     public MinesweeperBoard(int rows, int cols, int mineCount) {
-        super(rows, cols, '-');
+        super(rows, cols);
         this.mineCount = mineCount;
 
         placeMines();
@@ -35,7 +35,7 @@ public class MinesweeperBoard extends Grid {
     }
 
     /** Sets neighboring minecount of the cells on the board */
-    private void calculateNeighboringMines() {
+    public void calculateNeighboringMines() {
         for (GridCell cell : this) {
             if (!cell.hasMine()) {
                 int adjacentMines = countMinesAround(cell.pos());
@@ -67,15 +67,6 @@ public class MinesweeperBoard extends Grid {
             }
         }
         return adjMineCount;
-    }
-
-    /**
-     * Runs the calculation for the neighboring mines
-     * of the non-mine cells on the board.
-     * For testing purposes.
-     */
-    public void testCalculation() {
-        calculateNeighboringMines();
     }
 
 }

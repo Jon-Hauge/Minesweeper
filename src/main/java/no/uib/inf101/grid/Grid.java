@@ -8,14 +8,9 @@ public class Grid implements IGrid {
 
     private int rows;
     private int cols;
-
     private List<List<GridCell>> cells;
 
     public Grid(int rows, int cols) {
-        this(rows, cols, null);
-    }
-
-    public Grid(int rows, int cols, Character defaultValue) {
         this.rows = rows;
         this.cols = cols;
 
@@ -23,7 +18,7 @@ public class Grid implements IGrid {
         for (int i = 0; i < rows; i++) {
             List<GridCell> innerList = new ArrayList<>();
             for (int j = 0; j < cols; j++) {
-                GridCell defaultCell = new GridCell(new CellPosition(i, j), defaultValue);
+                GridCell defaultCell = new GridCell(new CellPosition(i, j));
                 innerList.add(defaultCell);
             }
             cells.add(innerList);
@@ -41,7 +36,7 @@ public class Grid implements IGrid {
     }
 
     /* Ny iterator for å omgjøre Grid's interne verdier til GridCell istedenfor Character
-    * ble hjulpet av OpenAI's ChatGPT. Dette gjelder addAll-funksjonen. Koden er forstått
+    * ble hjulpet av OpenAI's ChatGPT. Dette gjelder kun addAll-funksjonen. Koden er forstått
     * ihht til seg selv og resten av programmet.
     * OpenAI - https://chatgpt.com - henta 03.04.25
     */
@@ -53,26 +48,6 @@ public class Grid implements IGrid {
             gridCells.addAll(cell);
         }
         return gridCells.iterator();
-    }
-
-    @Override
-    public void set(CellPosition pos, Character symbol) {
-        if (!positionIsOnGrid(pos))
-            throw new IndexOutOfBoundsException("Given position is not within grid: (" + pos.row() + ", " + pos.col() + ")");
-
-        int row = pos.row();
-        int col = pos.col();
-        cells.get(row).set(col, new GridCell(pos, symbol));
-    }
-    
-    @Override
-    public Character get(CellPosition pos) {
-        if (!positionIsOnGrid(pos))
-            throw new IndexOutOfBoundsException("Given position is not within grid: (" + pos.row() + ", " + pos.col() + ")");
-
-        int row = pos.row();
-        int col = pos.col();
-        return cells.get(row).get(col).symbol();
     }
 
     @Override
