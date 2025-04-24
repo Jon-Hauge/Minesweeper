@@ -11,25 +11,18 @@ public interface ControllableMinesweeperModel {
      * If the cell's adjacent minecount is zero, it also reveals adjacent positions.
      * 
      * @param pos the position to reveal
-     * @param pos the position to reveal
      */
-    void revealCell(CellPosition pos);
     void revealCell(CellPosition pos);
 
     /**
-     * Sets flag at the chosen position, unless cell is revealed.
      * 
-     * @param pos the position to flag
      * @param pos the position to flag
      */
     void setFlag(CellPosition pos);
-    void setFlag(CellPosition pos);
 
-    /** Starts the game from welcome screen */
     /** Starts the game from welcome screen */
     void startGame();
 
-    /** Restarts the game from win or game-over screen */
     /** Restarts the game from win or game-over screen */
     void restartGame();
 
@@ -45,11 +38,7 @@ public interface ControllableMinesweeperModel {
 
     /** @return current state of the game */
     GameState getGameState();
-    /** @return current state of the game */
-    GameState getGameState();
 
-    /** @return current gameboard */
-    MinesweeperBoard getBoard();
     /** @return current gameboard */
     MinesweeperBoard getBoard();
 
