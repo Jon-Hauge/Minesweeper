@@ -12,13 +12,14 @@ public class MinesweeperBoard extends Grid {
     public MinesweeperBoard(int rows, int cols, int mineCount) {
         super(rows, cols);
         this.mineCount = mineCount;
-
-        placeMines();
-        calculateNeighboringMines();
     }
 
-    /** Places mines randomly on the board */
-    private void placeMines() {
+    /** Places mines randomly on the board.
+     * Mines cannot be set on the location of the first click.
+     * 
+     * @param firstClick first position clicked, making it exempt from having a mine
+     */
+    public void placeMines(CellPosition firstClick) {
         int count = 0;
         Random r = new Random();
         
@@ -27,11 +28,12 @@ public class MinesweeperBoard extends Grid {
             int randCol = r.nextInt(cols());
             CellPosition randPos = new CellPosition(randRow, randCol);
 
-            if (!getCell(randPos).hasMine()) {
+            if (!randPos.equals(firstClick) && !getCell(randPos).hasMine()) {
                 getCell(randPos).setMine();
                 count++;
             }
         }
+        calculateNeighboringMines();
     }
 
     /** Sets neighboring minecount of the cells on the board */

@@ -18,10 +18,12 @@ public class MinesweeperModel implements ViewableMinesweeperModel, ControllableM
     private GameMode mode;
     private int flagCount;
     private int elapsedTime;
+    private boolean firstClick;
 
     public MinesweeperModel() {
         state = GameState.WELCOME_SCREEN;
         mode = GameMode.MEDIUM;
+        firstClick = true;
         boardInitializer(mode);
     }
 
@@ -46,6 +48,11 @@ public class MinesweeperModel implements ViewableMinesweeperModel, ControllableM
 
     @Override
     public void revealCell(CellPosition pos) {
+        if (firstClick) {
+            board.placeMines(pos);
+            firstClick = false;
+        }
+
         int[][] adjacentPositions = {
             {-1, -1}, {-1, 0}, {-1, 1},
             {0, -1}, {0, 1},
@@ -99,7 +106,10 @@ public class MinesweeperModel implements ViewableMinesweeperModel, ControllableM
         }
     }
 
-    /** Checks whether game is won based on amount of cells revealed/flagged */
+    /** Checks whether game is won based on amount of cells revealed/flagged 
+     * 
+     * @return boolean of whether game is won
+    */
     private boolean checkWinCondition() {
         int totalCells = board.rows() * board.cols();
         int count = 0;
@@ -112,6 +122,7 @@ public class MinesweeperModel implements ViewableMinesweeperModel, ControllableM
                 totalCells--;
             }
         }
+        
         if (count == totalCells) {
             return true;
         } else {
@@ -122,6 +133,7 @@ public class MinesweeperModel implements ViewableMinesweeperModel, ControllableM
     @Override
     public void startGame() {
         state = GameState.ACTIVE_GAME;
+        firstClick = true;
     }
 
     @Override

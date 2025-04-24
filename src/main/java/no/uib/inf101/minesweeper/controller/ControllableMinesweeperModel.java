@@ -7,7 +7,7 @@ import no.uib.inf101.minesweeper.model.MinesweeperBoard;
 public interface ControllableMinesweeperModel {
 
     /**
-     * Reveals cell on the chosen position, unless cell is already flagged.
+     * Reveals cell on the chosen position, unless cell is flagged.
      * If the cell's adjacent minecount is zero, it also reveals adjacent positions.
      * 
      * @param pos the position to reveal
@@ -15,8 +15,7 @@ public interface ControllableMinesweeperModel {
     void revealCell(CellPosition pos);
 
     /**
-     * Sets flag at the chosen position.
-     * Revealed cells cannot be flagged.
+     * Sets flag at the chosen position, unless cell is revealed.
      * 
      * @param pos the position to flag
      */
@@ -28,10 +27,7 @@ public interface ControllableMinesweeperModel {
     /** Restarts the game from win or game-over screen */
     void restartGame();
 
-    /**
-     * Toggles difficulty of the game
-     * between easy, medium and hard.
-     */
+    /** Toggles difficulty of the game between easy, medium and hard. */
     void toggleGameMode();
 
     /**

@@ -161,6 +161,7 @@ public class MinesweeperModelTest {
         int hardMineCount = 0;
 
         model.toggleGameMode();
+        model.getBoard().placeMines(testPos1);
         for (GridCell cell : model.getBoard()) {
             if (cell.hasMine()) {
                 easyMineCount++;
@@ -171,6 +172,7 @@ public class MinesweeperModelTest {
         assertEquals(10, easyMineCount);
 
         model.toggleGameMode();
+        model.getBoard().placeMines(testPos1);
         if (model.getGameMode().equals(GameMode.MEDIUM)) {
             for (GridCell cell : model.getBoard()) {
                 if (cell.hasMine()) {
@@ -183,6 +185,7 @@ public class MinesweeperModelTest {
         }
 
         model.toggleGameMode();
+        model.getBoard().placeMines(testPos1);
         for (GridCell cell : model.getBoard()) {
             if (cell.hasMine()) {
                 hardMineCount++;

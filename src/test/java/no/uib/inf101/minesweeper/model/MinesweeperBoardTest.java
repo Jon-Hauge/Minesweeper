@@ -13,6 +13,7 @@ public class MinesweeperBoardTest {
     @Test
     public void placeMinesTest() {
         MinesweeperBoard board = new MinesweeperBoard(10, 10, 10);
+        board.placeMines(new CellPosition(0, 0));
         int count = 0;
 
         for (GridCell cell : board) {

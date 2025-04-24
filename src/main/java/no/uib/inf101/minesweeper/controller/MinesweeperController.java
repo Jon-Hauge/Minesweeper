@@ -85,6 +85,10 @@ public class MinesweeperController extends MouseAdapter implements KeyListener {
         }
     }
 
+    /** Translates position of cell into clickable bounds
+     * 
+     * @param pos position to get bounds for
+     */
     private Rectangle getBoundsForCell(CellPosition pos) {
         int rows = model.getBoard().rows();
         int cols = model.getBoard().cols();
